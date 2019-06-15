@@ -1,0 +1,30 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>OQ guru</title>
+  </head>
+  <body>
+	  ============
+	   header area
+	  ============
+	  <br>
+	  <br>
+    <div>
+      <a href="{% url 'home' %}">home</a>
+      <a href="{% url 'about' %}">home</a>
+      <a href="{% url 'contact' %}">home</a>
+    </div>
+    <br>
+	  
+    {% block content %}
+
+    {% endblock %}
+
+	  <br>
+    	  <br>
+	  =============
+	  footer area
+	  =============
+  </body>
+</html>
