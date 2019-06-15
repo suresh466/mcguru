@@ -20,6 +20,6 @@ import static_pages.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', static_pages.views.home, name='home'),
-    path('about/', static_pages.views.home, name='about'),
-    path('contact/', static_pages.views.home, name='contact'),
+    path('about/', static_pages.views.about, name='about'),
+    path('contact/', static_pages.views.contact, name='contact'),
 ]
