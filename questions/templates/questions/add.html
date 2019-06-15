@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h2>Add new questions to the collection</h2>
+{% if messages %}
 
-Add new questions to the collection
+{% for message in messages %}
 
-{% endblock %}
+<p>{{message}}</p>
+
+{% endfor %}
+
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" name={{title}} value="{{ title }}" />
+</form>
+
+{% endblock content %}
+
