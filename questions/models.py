@@ -21,3 +21,6 @@ class Question(models.Model):
             default=0,blank=False,editable=False)
     total_wrong_count = models.PositiveIntegerField(
             default=0,blank=False,editable=False)
+
+    def __str__(self):
+        return self.num
