@@ -33,7 +33,8 @@ def answer(request):
     
     info = get_object_or_404(Info, iteration_num=1)
     if info.last_answered == info.total_questions:
-        Question.objects.filter(right_count=2).delete()
+        deleted = Question.objects.filter(right_count=2).delete()
+        info.total_questions -= deleted[0]
         info.last_answered = 0
         info.save()
         question = 'False'
@@ -46,12 +47,10 @@ def answer(request):
             question.right_count += 1
             question.total_right_count += 1
             question.save()
-            print('you are correct')
         else:
             question.wrong_count += 1
             question.total_wrong_count += 1
             question.save()
-            print('you are wrong')
         info.last_answered = question.num
         info.save()
         return redirect('questions:answer')
