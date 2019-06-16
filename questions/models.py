@@ -33,4 +33,4 @@ class Info(models.Model):
     iteration_num = models.PositiveIntegerField(default=1,blank=False,editable=False)
 
     def __str__(self):
-        return self.iteration_num
+        return self.last_answered
