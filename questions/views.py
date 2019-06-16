@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import QuestionAddForm
 from .models import Info,Question
@@ -28,19 +29,33 @@ def question_add(request):
 
     return render(request,template,context)
 
+def iterate():
+    info = get_object_or_404(Info, iteration_num=1)
+    deleted = Question.objects.filter(right_count=2).delete()
+    info.total_questions -= deleted[0]
+    info.last_answered = 0
+    info.save()
+    question = 'False'
+    return redirect('questions:answer')
+
 def answer(request):
     template='questions/answer.html'
     
     info = get_object_or_404(Info, iteration_num=1)
-    if info.last_answered == info.total_questions:
-        deleted = Question.objects.filter(right_count=2).delete()
-        info.total_questions -= deleted[0]
-        info.last_answered = 0
-        info.save()
-        question = 'False'
-        return redirect('questions:answer')
+    
+    if info.last_answered == 0:
+        question = Question.objects.all().first()
     else:
-        question = get_object_or_404(Question, num=info.last_answered+1)
+        last_answered = Question.objects.get(num=info.last_answered)
+        try:
+            question = last_answered.get_next_by_date_created()
+        except ObjectDoesNotExist:
+            info = get_object_or_404(Info, iteration_num=1)
+            deleted = Question.objects.filter(right_count=2).delete()
+            info.total_questions -= deleted[0]
+            info.last_answered = 0
+            info.save()
+            return redirect('questions:answer')
 
     if request.method == 'POST':
         if request.POST['answer'] == question.answer:
