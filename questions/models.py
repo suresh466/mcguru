@@ -23,7 +23,7 @@ class Question(models.Model):
             default=0,blank=False,editable=False)
 
     def __str__(self):
-        return self.num
+        return str(self.num)
 
 class Info(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
@@ -33,4 +33,4 @@ class Info(models.Model):
     iteration_num = models.PositiveIntegerField(default=1,blank=False,editable=False)
 
     def __str__(self):
-        return self.last_answered
+        return str(self.total_questions)
