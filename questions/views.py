@@ -10,7 +10,9 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        if question.num == 1:
+        if Info.objects.filter(iteration_num=1).exists():
+            pass
+        else:
             Info.objects.create()
 
         info = get_object_or_404(Info, iteration_num=1)
@@ -32,7 +34,10 @@ def answer(request):
     info = get_object_or_404(Info, iteration_num=1)
     if info.last_answered == info.total_questions:
         Question.objects.filter(right_count=2).delete()
+        info.last_answered = 0
+        info.save()
         question = 'False'
+        return redirect('questions:answer')
     else:
         question = get_object_or_404(Question, num=info.last_answered+1)
 
