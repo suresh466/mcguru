@@ -10,7 +10,7 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        if question.num == '1':
+        if question.num == 1:
             Info.objects.create()
 
         info = get_object_or_404(Info, iteration_num=1)
@@ -30,10 +30,10 @@ def answer(request):
     template='questions/answer.html'
     
     info = get_object_or_404(Info, iteration_num=1)
-    if int(info.last_answered) == info.total_questions:
+    if info.last_answered == info.total_questions:
         question = 'False'
     else:
-        question = get_object_or_404(Question, num=int(info.last_answered)+1)
+        question = get_object_or_404(Question, num=info.last_answered+1)
 
     if request.method == 'POST':
         if request.POST['answer'] == question.answer:
