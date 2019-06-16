@@ -5,7 +5,7 @@ from django.db import models
 class Question(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated= models.DateTimeField(auto_now=True)
-    num = models.CharField(unique=True,max_length=255,blank=False)
+    num = models.PositiveIntegerField(unique=True,blank=False)
     question = models.TextField(max_length=500,blank=False)
     opt_a = models.CharField(max_length=255,blank=False)
     opt_b = models.CharField(max_length=255,blank=False)
@@ -29,7 +29,7 @@ class Info(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     total_questions = models.PositiveIntegerField(blank=False,default=0)
-    last_answered = models.CharField(max_length=255,blank=False,default=0)
+    last_answered = models.PositiveIntegerField(blank=False,default=0)
     iteration_num = models.PositiveIntegerField(default=1,blank=False,editable=False)
 
     def __str__(self):

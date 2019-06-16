@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import QuestionAddForm
-from .models import Info
+from .models import Info,Question
 # Create your views here.
 
 def question_add(request):
@@ -10,7 +10,7 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        if question.num == '1':
+        if question.num == 1:
             Info.objects.create()
 
         info = get_object_or_404(Info, iteration_num=1)
@@ -22,6 +22,31 @@ def question_add(request):
     context={
             'title':'add',
             'form': form,
+            }
+
+    return render(request,template,context)
+
+def answer(request):
+    template='questions/answer.html'
+    
+    info = get_object_or_404(Info, iteration_num=1)
+    if info.last_answered == info.total_questions:
+        question = 'False'
+    else:
+        question = get_object_or_404(Question, num=info.last_answered+1)
+
+    if request.method == 'POST':
+        if request.POST['answer'] == question.answer:
+            print('you are correct')
+        else:
+            print('you are wrong')
+        info.last_answered = question.num
+        info.save()
+        return redirect('questions:answer')
+
+    context={
+            'title':'answer',
+            'question': question,
             }
 
     return render(request,template,context)
