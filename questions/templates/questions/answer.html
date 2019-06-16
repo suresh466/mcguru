@@ -12,9 +12,16 @@
 
 {% endif %}
 
-{% if question != 'False' %}
+{% if question != None %}
 
-{{question.question}}
+<p>Right count</p>
+{{question.right_count}}
+total: {{question.total_right_count}}
+<p>wrong count</p>
+{{question.wrong_count}}
+total: {{question.total_wrong_count}}
+<hr>
+Q. {{question.question}}
 <p>a. {{question.opt_a}}</p>
 <p>b. {{question.opt_b}}</p>
 <p>c. {{question.opt_c}}</p>

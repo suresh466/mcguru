@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import QuestionAddForm
 from .models import Info,Question
@@ -10,7 +11,9 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        if question.num == 1:
+        if Info.objects.filter(iteration_num=1).exists():
+            pass
+        else:
             Info.objects.create()
 
         info = get_object_or_404(Info, iteration_num=1)
@@ -26,20 +29,43 @@ def question_add(request):
 
     return render(request,template,context)
 
+def iterate():
+    info = get_object_or_404(Info, iteration_num=1)
+    deleted = Question.objects.filter(right_count=2).delete()
+    info.total_questions -= deleted[0]
+    info.last_answered = 0
+    info.save()
+    question = 'False'
+    return redirect('questions:answer')
+
 def answer(request):
     template='questions/answer.html'
     
     info = get_object_or_404(Info, iteration_num=1)
-    if info.last_answered == info.total_questions:
-        question = 'False'
+    
+    if info.last_answered == 0:
+        question = Question.objects.all().first()
     else:
-        question = get_object_or_404(Question, num=info.last_answered+1)
+        last_answered = Question.objects.get(num=info.last_answered)
+        try:
+            question = last_answered.get_next_by_date_created()
+        except ObjectDoesNotExist:
+            info = get_object_or_404(Info, iteration_num=1)
+            deleted = Question.objects.filter(right_count=2).delete()
+            info.total_questions -= deleted[0]
+            info.last_answered = 0
+            info.save()
+            return redirect('questions:answer')
 
     if request.method == 'POST':
         if request.POST['answer'] == question.answer:
-            print('you are correct')
+            question.right_count += 1
+            question.total_right_count += 1
+            question.save()
         else:
-            print('you are wrong')
+            question.wrong_count += 1
+            question.total_wrong_count += 1
+            question.save()
         info.last_answered = question.num
         info.save()
         return redirect('questions:answer')
