@@ -12,7 +12,7 @@ class Question(models.Model):
     opt_c = models.CharField(max_length=255,blank=False)
     opt_d = models.CharField(max_length=255,blank=False)
     answer = models.CharField(max_length=1,blank=False)
-    hint = models.TextField(max_length=500,blank=True)
+    hint = models.CharField(max_length=500,blank=True)
     right_count = models.PositiveIntegerField(
             default=0,blank=False,editable=False)
     wrong_count = models.PositiveIntegerField(
