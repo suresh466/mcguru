@@ -43,7 +43,13 @@ def answer(request):
     info = get_object_or_404(Info, iteration_num=1)
     
     if info.last_answered == 0:
-        question = Question.objects.all().first()
+        queryset = Question.objects.all()
+        min_time = queryset.first().date_created
+        for query in queryset:
+            if query.date_created<min_time:
+                min_time = query.date_created
+
+        question = Question.objects.get(date_created=min_time)
 
     else:
         last_answered = Question.objects.get(num=info.last_answered)
