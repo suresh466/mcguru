@@ -16,12 +16,12 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        if Info.objects.filter(iteration_num=1).exists():
+        if Info.objects.filter(identifier=1).exists():
             pass
         else:
             Info.objects.create()
 
-        info = get_object_or_404(Info, iteration_num=1)
+        info = get_object_or_404(Info, identifier=1)
         info.total_questions += 1
         info.save()
         question.save()
@@ -63,7 +63,7 @@ def get_correct_answer(answer_num,question):
 def answer(request):
     template='questions/answer.html'
     
-    info = get_object_or_404(Info, iteration_num=1)
+    info = get_object_or_404(Info, identifier=1)
     
     if info.last_answered == 0:
         question = get_first_question()
@@ -72,12 +72,13 @@ def answer(request):
         try:
             question = last_answered.get_next_by_date_created()
         except ObjectDoesNotExist:
-            info = get_object_or_404(Info, iteration_num=1)
+            info = get_object_or_404(Info, identifier=1)
             deleted = Question.objects.filter(right_count=MAX_RIGHT_COUNT).delete()
+            sort()
             info.total_questions -= deleted[0]
             info.last_answered = 0
+            info.iteration_num += 1
             info.save()
-            sort()
             return redirect('home')
 
     if request.method == 'POST':
@@ -106,6 +107,7 @@ def answer(request):
     context={
             'title':'answer',
             'question': question,
+            'info': info
             }
 
     return render(request,template,context)

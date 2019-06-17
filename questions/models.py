@@ -31,6 +31,7 @@ class Info(models.Model):
     total_questions = models.PositiveIntegerField(blank=False,default=0)
     last_answered = models.PositiveIntegerField(blank=False,default=0)
     iteration_num = models.PositiveIntegerField(default=1,blank=False,editable=False)
+    identifier = models.PositiveIntegerField(default=1,blank=False,editable=False)
 
     def __str__(self):
         return str(self.total_questions)
