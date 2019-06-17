@@ -2,11 +2,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def home(request):
-    template='static_pages/home.html'
-
-    return render(request,template)
-
 def about(request):
     template='static_pages/about.html'
 
