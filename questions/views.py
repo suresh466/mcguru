@@ -5,6 +5,9 @@ from .forms import QuestionAddForm
 from .models import Info,Question
 # Create your views here.
 
+MAX_WRONG_COUNT = 15
+MAX_RIGHT_COUNT = 2
+
 def question_add(request):
     template='questions/add.html'
 
@@ -31,7 +34,7 @@ def question_add(request):
     return render(request,template,context)
 
 def sort():
-    for wrong_count in reversed(range(0,16)):
+    for wrong_count in reversed(range(0,MAX_WRONG_COUNT+1)):
         queryset = Question.objects.filter(wrong_count=wrong_count)
         for query in queryset:
             query.date_created=timezone.now()
@@ -57,7 +60,7 @@ def answer(request):
             question = last_answered.get_next_by_date_created()
         except ObjectDoesNotExist:
             info = get_object_or_404(Info, iteration_num=1)
-            deleted = Question.objects.filter(right_count=2).delete()
+            deleted = Question.objects.filter(right_count=MAX_RIGHT_COUNT).delete()
             info.total_questions -= deleted[0]
             info.last_answered = 0
             info.save()
