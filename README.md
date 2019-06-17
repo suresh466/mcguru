@@ -46,6 +46,6 @@ There are about 5000 multiple choice questions in a book I got recently to prepa
 how many times I got any particular question wrong and right.  
 **Step 3:** Once I go through all the questions, questions are sorted based on their wrong_count  
 and previous position.  
-**(The question with the most wrong_count gets to me first in the next iteration)  **
-**(The question with 2 countenous right_count gets deleted leaving me with less questions every iteration)  **
+**(The question with the most wrong_count gets to me first in the next iteration)**  
+**(The question with 2 countenous right_count gets deleted leaving me with less questions every iteration)**  
 **Step 4:** I save and use time more efficiently.  
