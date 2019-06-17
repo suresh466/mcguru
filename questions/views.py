@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render,redirect,get_object_or_404
@@ -65,20 +66,37 @@ def answer(request):
             info.last_answered = 0
             info.save()
             sort()
-            return redirect('answer')
+            return redirect('home')
 
     if request.method == 'POST':
-        if request.POST['answer'] == question.answer:
+        answered_num = request.POST['answer']
+        answer_num = question.answer
+        if answer_num == 'a':
+            answer = question.opt_a
+        elif answer_num == 'b':
+            answer = questin.opt_b
+        elif answer_num == 'c':
+            answer = question.opt_c
+        else:
+            answer = question.opt_d
+
+        if answered_num == question.answer:
             question.right_count += 1
             question.total_right_count += 1
             question.save()
+            messages.success(request,
+                    "Congratulations, correct answer is {}: {}."
+                    .format(answer_num,answer))
         else:
             question.wrong_count += 1
             question.total_wrong_count += 1
             question.save()
+            messages.success(request,
+                    "The correct answer was {}: {}. but you selected {}. Good luck for this one"
+                    .format(answer_num,answer,answered_num))
         info.last_answered = question.num
         info.save()
-        return redirect('answer')
+        return redirect('home')
 
     context={
             'title':'answer',
