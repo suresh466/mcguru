@@ -5,14 +5,13 @@ from django.db import models
 class Question(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated= models.DateTimeField(auto_now=True)
-    num = models.PositiveIntegerField(unique=True,blank=False)
     question = models.TextField(max_length=500,blank=False)
     opt_a = models.CharField(max_length=255,blank=False)
     opt_b = models.CharField(max_length=255,blank=False)
     opt_c = models.CharField(max_length=255,blank=False)
     opt_d = models.CharField(max_length=255,blank=False)
     answer = models.CharField(max_length=1,blank=False)
-    hint = models.CharField(max_length=500,blank=True)
+    #hint = models.CharField(max_length=500,blank=True)
     right_count = models.PositiveIntegerField(
             default=0,blank=False,editable=False)
     wrong_count = models.PositiveIntegerField(
