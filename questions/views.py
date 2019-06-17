@@ -49,6 +49,17 @@ def get_first_question():
             min_time = query.date_created
     return Question.objects.get(date_created=min_time)
 
+def get_correct_answer(answer_num,question):
+    if answer_num == 'a':
+        answer = question.opt_a
+    elif answer_num == 'b':
+        answer = questin.opt_b
+    elif answer_num == 'c':
+        answer = question.opt_c
+    else:
+        answer = question.opt_d
+    return answer
+
 def answer(request):
     template='questions/answer.html'
     
@@ -72,14 +83,7 @@ def answer(request):
     if request.method == 'POST':
         answered_num = request.POST['answer']
         answer_num = question.answer
-        if answer_num == 'a':
-            answer = question.opt_a
-        elif answer_num == 'b':
-            answer = questin.opt_b
-        elif answer_num == 'c':
-            answer = question.opt_c
-        else:
-            answer = question.opt_d
+        answer = get_correct_answer(answer_num,question)
 
         if answered_num == question.answer:
             question.right_count += 1
