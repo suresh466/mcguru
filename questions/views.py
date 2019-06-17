@@ -24,7 +24,7 @@ def question_add(request):
         info.total_questions += 1
         info.save()
         question.save()
-        return redirect('questions:add')
+        return redirect('add')
 
     context={
             'title':'add',
@@ -65,7 +65,7 @@ def answer(request):
             info.last_answered = 0
             info.save()
             sort()
-            return redirect('questions:answer')
+            return redirect('answer')
 
     if request.method == 'POST':
         if request.POST['answer'] == question.answer:
@@ -78,7 +78,7 @@ def answer(request):
             question.save()
         info.last_answered = question.num
         info.save()
-        return redirect('questions:answer')
+        return redirect('answer')
 
     context={
             'title':'answer',
