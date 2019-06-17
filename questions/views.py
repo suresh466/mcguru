@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import QuestionAddForm
@@ -29,14 +30,12 @@ def question_add(request):
 
     return render(request,template,context)
 
-def iterate():
-    info = get_object_or_404(Info, iteration_num=1)
-    deleted = Question.objects.filter(right_count=2).delete()
-    info.total_questions -= deleted[0]
-    info.last_answered = 0
-    info.save()
-    question = 'False'
-    return redirect('questions:answer')
+def sort():
+    for wrong_count in reversed(range(0,16)):
+        queryset = Question.objects.filter(wrong_count=wrong_count)
+        for query in queryset:
+            query.date_created=timezone.now()
+            query.save()
 
 def answer(request):
     template='questions/answer.html'
@@ -45,6 +44,7 @@ def answer(request):
     
     if info.last_answered == 0:
         question = Question.objects.all().first()
+
     else:
         last_answered = Question.objects.get(num=info.last_answered)
         try:
@@ -55,6 +55,7 @@ def answer(request):
             info.total_questions -= deleted[0]
             info.last_answered = 0
             info.save()
+            sort()
             return redirect('questions:answer')
 
     if request.method == 'POST':
