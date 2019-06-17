@@ -41,20 +41,21 @@ def sort():
             query.date_created=timezone.now()
             query.save()
 
+def get_first_question():
+    queryset = Question.objects.all()
+    min_time = queryset.first().date_created
+    for query in queryset:
+        if query.date_created<min_time:
+            min_time = query.date_created
+    return Question.objects.get(date_created=min_time)
+
 def answer(request):
     template='questions/answer.html'
     
     info = get_object_or_404(Info, iteration_num=1)
     
     if info.last_answered == 0:
-        queryset = Question.objects.all()
-        min_time = queryset.first().date_created
-        for query in queryset:
-            if query.date_created<min_time:
-                min_time = query.date_created
-
-        question = Question.objects.get(date_created=min_time)
-
+        question = get_first_question()
     else:
         last_answered = Question.objects.get(num=info.last_answered)
         try:
