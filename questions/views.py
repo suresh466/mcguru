@@ -68,7 +68,7 @@ def answer(request):
     if info.last_answered == 0:
         question = get_first_question()
     else:
-        last_answered = Question.objects.get(num=info.last_answered)
+        last_answered = Question.objects.get(pk=info.last_answered)
         try:
             question = last_answered.get_next_by_date_created()
         except ObjectDoesNotExist:
@@ -100,7 +100,7 @@ def answer(request):
             messages.success(request,
                     "The correct answer was {}: {}. but you selected {}. Good luck for this one"
                     .format(answer_num,answer,answered_num))
-        info.last_answered = question.num
+        info.last_answered = question.pk
         info.save()
         return redirect('home')
 
