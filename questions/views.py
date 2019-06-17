@@ -16,12 +16,12 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        if Info.objects.filter(iteration_num=1).exists():
+        if Info.objects.filter(identifier=1).exists():
             pass
         else:
             Info.objects.create()
 
-        info = get_object_or_404(Info, iteration_num=1)
+        info = get_object_or_404(Info, identifier=1)
         info.total_questions += 1
         info.save()
         question.save()
@@ -41,44 +41,50 @@ def sort():
             query.date_created=timezone.now()
             query.save()
 
+def get_first_question():
+    queryset = Question.objects.all()
+    min_time = queryset.first().date_created
+    for query in queryset:
+        if query.date_created<min_time:
+            min_time = query.date_created
+    return Question.objects.get(date_created=min_time)
+
+def get_correct_answer(answer_num,question):
+    if answer_num == 'a':
+        answer = question.opt_a
+    elif answer_num == 'b':
+        answer = questin.opt_b
+    elif answer_num == 'c':
+        answer = question.opt_c
+    else:
+        answer = question.opt_d
+    return answer
+
 def answer(request):
     template='questions/answer.html'
     
-    info = get_object_or_404(Info, iteration_num=1)
+    info = get_object_or_404(Info, identifier=1)
     
     if info.last_answered == 0:
-        queryset = Question.objects.all()
-        min_time = queryset.first().date_created
-        for query in queryset:
-            if query.date_created<min_time:
-                min_time = query.date_created
-
-        question = Question.objects.get(date_created=min_time)
-
+        question = get_first_question()
     else:
         last_answered = Question.objects.get(num=info.last_answered)
         try:
             question = last_answered.get_next_by_date_created()
         except ObjectDoesNotExist:
-            info = get_object_or_404(Info, iteration_num=1)
+            info = get_object_or_404(Info, identifier=1)
             deleted = Question.objects.filter(right_count=MAX_RIGHT_COUNT).delete()
+            sort()
             info.total_questions -= deleted[0]
             info.last_answered = 0
+            info.iteration_num += 1
             info.save()
-            sort()
             return redirect('home')
 
     if request.method == 'POST':
         answered_num = request.POST['answer']
         answer_num = question.answer
-        if answer_num == 'a':
-            answer = question.opt_a
-        elif answer_num == 'b':
-            answer = questin.opt_b
-        elif answer_num == 'c':
-            answer = question.opt_c
-        else:
-            answer = question.opt_d
+        answer = get_correct_answer(answer_num,question)
 
         if answered_num == question.answer:
             question.right_count += 1
@@ -101,6 +107,7 @@ def answer(request):
     context={
             'title':'answer',
             'question': question,
+            'info': info
             }
 
     return render(request,template,context)
