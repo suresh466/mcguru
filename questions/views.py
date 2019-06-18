@@ -8,6 +8,7 @@ from .models import Info,Question
 
 MAX_WRONG_COUNT = 15
 MAX_RIGHT_COUNT = 2
+MAX_ITERATIONS = 15
 
 def question_add(request):
     template='questions/add.html'
@@ -69,10 +70,13 @@ def answer(request):
         question = get_first_question()
     else:
         last_answered = Question.objects.get(pk=info.last_answered)
+        if info.iteration_num == MAX_ITERATIONS:
+            messages.warning(request,
+                    "You have done max iterations of this question set, please update max_iterations if you want to keep going.")
+            return redirect('about')
         try:
             question = last_answered.get_next_by_date_created()
         except ObjectDoesNotExist:
-            info = get_object_or_404(Info, identifier=1)
             deleted = Question.objects.filter(right_count=MAX_RIGHT_COUNT).delete()
             sort()
             info.total_questions -= deleted[0]
@@ -97,8 +101,8 @@ def answer(request):
             question.wrong_count += 1
             question.total_wrong_count += 1
             question.save()
-            messages.success(request,
-                    "The correct answer was {}: {}. but you selected {}. Good luck for this one"
+            messages.warning(request,
+                    "The correct answer was {}: {}. but you selected {}. Good luck for this one."
                     .format(answer_num,answer,answered_num))
         info.last_answered = question.pk
         info.save()

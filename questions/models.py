@@ -22,7 +22,7 @@ class Question(models.Model):
             default=0,blank=False,editable=False)
 
     def __str__(self):
-        return str(self.num)
+        return str(self.pk)
 
 class Info(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
