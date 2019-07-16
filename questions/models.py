@@ -2,6 +2,15 @@ from django.db import models
 
 # Create your models here.
 
+CATEGORIES_CHOICE = (
+        ('Uncategorized', 'Uncategorized'),
+        ('Excel', 'Excel'),
+        ('Word', 'Word'),
+        ('Powerpoint', 'Powerpoint'),
+        ('Operating System', 'Operating System'),
+        ('Computer Fundamental', 'Computer Fundamental'),
+        )
+
 class Question(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated= models.DateTimeField(auto_now=True)
@@ -12,6 +21,7 @@ class Question(models.Model):
     opt_c = models.CharField(max_length=255,blank=False)
     opt_d = models.CharField(max_length=255,blank=False)
     answer = models.CharField(max_length=1,blank=False)
+    categories = models.CharField(choices=CATEGORIES_CHOICE,default='Uncategorized', max_length=20)
     #hint = models.CharField(max_length=500,blank=True)
     right_count = models.PositiveIntegerField(
             default=0,blank=False,editable=False)
