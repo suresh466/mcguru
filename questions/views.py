@@ -23,9 +23,34 @@ def question_add(request):
 
     if form.is_valid():
         question = form.save(commit=False)
-        question.question_num=info.total_questions+1
+
+        if question.categories == 'Uncategorized':
+            question.question_num=info.total_questions_uncategorized+1
+            info.total_questions_uncategorized = question.question_num
+
+        elif question.categories == 'Excel':
+            question.question_num=info.total_questions_excel+1
+            info.total_questions_excel = question.question_num
+
+        elif question.categories == 'Word':
+            question.question_num=info.total_questions_word+1
+            info.total_questions_word = question.question_num
+
+        elif question.categories == 'Powerpoint':
+            question.question_num=info.total_questions_powerpoint+1
+            info.total_questions_powerpoint = question.question_num
+
+        elif question.categories == 'Operating System':
+            question.question_num=info.total_questions_operating_system+1
+            info.total_questions_operating_system = question.question_num
+
+        else:
+            question.question_num=info.total_questions_computer_fundamental+1
+            info.total_questions_computer_fundamental = question.question_num
+
+        info.total_questions += 1
+
         question.save()
-        info.total_questions = question.question_num
         info.save()
         return redirect('add')
 
