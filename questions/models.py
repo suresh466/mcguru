@@ -6,7 +6,7 @@ UN = 'uncategorized'
 XLS = 'excel'
 DOC = 'word'
 PPT = 'powerpoint'
-OS = 'oprating-system'
+OS = 'operating-system'
 MISC = 'computer-misc'
 
 CATEGORIES_CHOICE = (
