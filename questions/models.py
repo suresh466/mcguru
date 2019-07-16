@@ -33,7 +33,7 @@ class Question(models.Model):
             default=0,blank=False,editable=False)
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.question_num)
 
 class Info(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
@@ -52,13 +52,6 @@ class Info(models.Model):
     last_answered_powerpoint = models.PositiveIntegerField(blank=False,default=0)
     last_answered_operating_system = models.PositiveIntegerField(blank=False,default=0)
     last_answered_computer_fundamental = models.PositiveIntegerField(blank=False,default=0)
-    iteration_num = models.PositiveIntegerField(default=1,blank=False,editable=False)
-    iteration_num_uncategorized = models.PositiveIntegerField(default=1,blank=False,editable=False)
-    iteration_num_excel = models.PositiveIntegerField(default=1,blank=False,editable=False)
-    iteration_num_word = models.PositiveIntegerField(default=1,blank=False,editable=False)
-    iteration_num_powerpoint = models.PositiveIntegerField(default=1,blank=False,editable=False)
-    iteration_num_operating_system = models.PositiveIntegerField(default=1,blank=False,editable=False)
-    iteration_num_computer_fundamental = models.PositiveIntegerField(default=1,blank=False,editable=False)
     identifier = models.PositiveIntegerField(default=1,blank=False,editable=False)
 
     def __str__(self):
