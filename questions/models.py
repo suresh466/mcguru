@@ -2,13 +2,20 @@ from django.db import models
 
 # Create your models here.
 
+UN = 'uncategorized'
+XLS = 'excel'
+DOC = 'word'
+PPT = 'powerpoint'
+OS = 'oprating-system'
+MISC = 'computer-misc'
+
 CATEGORIES_CHOICE = (
-        ('Uncategorized', 'Uncategorized'),
-        ('Excel', 'Excel'),
-        ('Word', 'Word'),
-        ('Powerpoint', 'Powerpoint'),
-        ('Operating System', 'Operating System'),
-        ('Computer Fundamental', 'Computer Fundamental'),
+        (UN, 'Uncategorized'),
+        (XLS, 'Excel'),
+        (DOC,'Word'),
+        (PPT,'Powerpoint'),
+        (OS,'Operating System'),
+        (MISC,'Computer Fundamental'),
         )
 
 class Question(models.Model):

@@ -80,10 +80,16 @@ def answer(request):
     category_last_answered= getattr(info, 'last_answered_'+ category)
     
     if category_last_answered == 0:
-        question = Question.objects.get(category=category.capitalize(),question_num=1)
+        try:
+            question = Question.objects.get(category=category,question_num=1)
+        except Question.DoesNotExist:
+            print('===============================++++++++++++++++=========================')
+            print('Question number 1 does not exist for some reason fix it')
+            print('===============================++++++++++++++++=========================')
+            raise
     else:
         try:
-            question = Question.objects.get(question_num=category_last_answered+1, category=category.capitalize())
+            question = Question.objects.get(question_num=category_last_answered+1, category=category)
 
         except MultipleObjectsReturned:
             print('===============================++++++++++++++++=========================')
