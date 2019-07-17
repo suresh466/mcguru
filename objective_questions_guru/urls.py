@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from static_pages.views import about, contact
-from questions.views import question_add
+from questions import urls as qurls
 from answers.views import answer
 
 urlpatterns = [
@@ -28,7 +28,7 @@ urlpatterns = [
     path("powerpoint/", answer, name="powerpoint"),
     path("operating_system/", answer, name="operating-system"),
     path("computer_fundamental/", answer, name="computer-misc"),
-    path("add/", question_add, name="add"),
+    path("add/", include(qurls)),
     path("about/", about, name="about"),
     path("contact/", contact, name="contact"),
 ]

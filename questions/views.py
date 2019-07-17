@@ -46,7 +46,7 @@ def question_add(request):
 
         question.save()
         info.save()
-        return redirect("add")
+        return redirect("questions:add")
 
     context = {"title": "add", "form": form, "info": info}
 
