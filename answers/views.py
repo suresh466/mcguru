@@ -68,24 +68,32 @@ def answer(request):
             return redirect("about")
 
     if request.method == "POST":
-        answered_num = request.POST["answer"].lower()
-        answer = get_correct_answer(answered_num, question)
 
-        if answer == question.answer:
-            messages.success(
-                request,
-                "Congratulations, correct answer is {}: {}.".format(
-                    answered_num, answer
-                ),
-            )
+        if 'jump' in request.POST:
+            jump = int(request.POST["jump"])-1
         else:
-            messages.warning(
-                request,
-                "The correct answer was : {}. but you selected {}. Good luck for this one.".format(
-                    answer, answered_num
-                ),
-            )
-        request.session["last_answered_" + category] = question.question_num
+            answered_num = request.POST["answer"].lower()
+            answer = get_correct_answer(answered_num, question)
+
+            if answer == question.answer:
+                messages.success(
+                    request,
+                    "Congratulations, correct answer is {}: {}.".format(
+                        answered_num, answer
+                    ),
+                )
+            else:
+                messages.warning(
+                    request,
+                    "The correct answer was : {}. but you selected {}. Good luck for this one.".format(
+                        answer, answered_num
+                    ),
+                )
+
+        if jump >= 0:
+            request.session["last_answered_" + category] = jump
+        else:
+            request.session["last_answered_" + category] = question.question_num
         return redirect("answers:" + category)
     total_questions = getattr(info, "total_questions_"+category)
 
