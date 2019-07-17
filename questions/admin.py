@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question,Info
+from .models import Question, Info
 
 # Register your models here.
 
