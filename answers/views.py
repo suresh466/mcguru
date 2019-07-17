@@ -16,7 +16,7 @@ def get_correct_answer(answered_num, question):
 
 
 def answer(request):
-    template = "questions/answer.html"
+    template = "answers/answer.html"
 
     info = get_object_or_404(Info, identifier=1)
     category = request.path_info.replace("/", "").replace("answer", "")
