@@ -33,14 +33,6 @@ class Question(models.Model):
         choices=CATEGORIES_CHOICE, default="Uncategorized", max_length=20
     )
     # hint = models.CharField(max_length=500,blank=True)
-    right_count = models.PositiveIntegerField(default=0, blank=False, editable=False)
-    wrong_count = models.PositiveIntegerField(default=0, blank=False, editable=False)
-    total_right_count = models.PositiveIntegerField(
-        default=0, blank=False, editable=False
-    )
-    total_wrong_count = models.PositiveIntegerField(
-        default=0, blank=False, editable=False
-    )
 
     def __str__(self):
         return str(self.question_num)
@@ -58,15 +50,6 @@ class Info(models.Model):
         blank=False, default=0
     )
     total_questions_computer_fundamental = models.PositiveIntegerField(
-        blank=False, default=0
-    )
-    last_answered = models.PositiveIntegerField(blank=False, default=0)
-    last_answered_uncategorized = models.PositiveIntegerField(blank=False, default=0)
-    last_answered_excel = models.PositiveIntegerField(blank=False, default=0)
-    last_answered_word = models.PositiveIntegerField(blank=False, default=0)
-    last_answered_powerpoint = models.PositiveIntegerField(blank=False, default=0)
-    last_answered_operating_system = models.PositiveIntegerField(blank=False, default=0)
-    last_answered_computer_fundamental = models.PositiveIntegerField(
         blank=False, default=0
     )
     identifier = models.PositiveIntegerField(default=1, blank=False, editable=False)
