@@ -18,29 +18,18 @@ def question_add(request):
     if form.is_valid():
         question = form.save(commit=False)
 
-        if question.category == "Uncategorized":
-            question.question_num = info.total_questions_uncategorized + 1
-            info.total_questions_uncategorized = question.question_num
-
-        elif question.category == "Excel":
-            question.question_num = info.total_questions_excel + 1
-            info.total_questions_excel = question.question_num
-
-        elif question.category == "Word":
-            question.question_num = info.total_questions_word + 1
-            info.total_questions_word = question.question_num
-
-        elif question.category == "Powerpoint":
-            question.question_num = info.total_questions_powerpoint + 1
-            info.total_questions_powerpoint = question.question_num
-
-        elif question.category == "Operating System":
-            question.question_num = info.total_questions_operating_system + 1
-            info.total_questions_operating_system = question.question_num
-
-        else:
-            question.question_num = info.total_questions_computer_fundamental + 1
-            info.total_questions_computer_fundamental = question.question_num
+        for category in [
+                "uncategorized",
+                "excel",
+                "word",
+                "powerpoint",
+                "operating_system",
+        ]:
+            if question.category == category:
+                question.question_num = getattr(info, "total_questions_" + category) + 1
+                setattr(info, "total_questions_" + category, question.question_num)
+        question.question_num = info.total_questions_computer_fundamental + 1
+        info.total_questions_computer_fundamental = question.question_num
 
         info.total_questions += 1
 

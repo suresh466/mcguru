@@ -23,7 +23,10 @@ def answer(request):
     if category == "":
         category = "uncategorized"
 
-    category_last_answered = getattr(info, "last_answered_" + category)
+    if 'last_answered_' + category not in request.session:
+        category_last_answered = request.session['last_answered_' + category] = 0
+    else:
+        category_last_answered = request.session['last_answered_' + category]
 
     if category_last_answered == 0:
         try:
@@ -40,12 +43,12 @@ def answer(request):
     else:
         try:
             question = Question.objects.get(
-                question_num=category_last_answered + 1, category=category
+                question_num = category_last_answered + 1, category=category
             )
 
         except MultipleObjectsReturned:
             print(
-                "===============================++++++++++++++++========================="
+                "=====================++++++++++++++++=================="
             )
             print(
                 "There is more than one question with question number {} in the {} category fix it.".format(
@@ -53,7 +56,7 @@ def answer(request):
                 )
             )
             print(
-                "===============================++++++++++++++++========================="
+                "=====================++++++++++++++++=================="
             )
             raise
 
@@ -61,8 +64,7 @@ def answer(request):
             messages.success(
                 request, "Congratulations all questions are done in this category."
             )
-            setattr(info, "last_answered_" + category, 0)
-            info.save()
+            request.session['last_answered_'+category] = 0
             return redirect("about")
 
     if request.method == "POST":
@@ -70,8 +72,6 @@ def answer(request):
         answer = get_correct_answer(answered_num, question)
 
         if answer == question.answer:
-            question.right_count += 1
-            question.total_right_count += 1
             messages.success(
                 request,
                 "Congratulations, correct answer is {}: {}.".format(
@@ -79,19 +79,16 @@ def answer(request):
                 ),
             )
         else:
-            question.wrong_count += 1
-            question.total_wrong_count += 1
             messages.warning(
                 request,
                 "The correct answer was : {}. but you selected {}. Good luck for this one.".format(
                     answer, answered_num
                 ),
             )
-        question.save()
-        setattr(info, "last_answered_" + category, question.question_num)
-        info.save()
+        request.session["last_answered_" + category] = question.question_num
         return redirect("answers:" + category)
+    total_questions = getattr(info, "total_questions_"+category)
 
-    context = {"title": "answer", "question": question, "info": info}
+    context = {"title": "answer", "question": question, "total_questions": total_questions}
 
     return render(request, template, context)
