@@ -21,6 +21,7 @@ from answers import urls as aurls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", aurls.answer, name="home"),
     path("answer/", include(aurls)),
     path("add/", include(qurls)),
     path("about/", about, name="about"),
