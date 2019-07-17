@@ -16,19 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from static_pages.views import about, contact
-from questions.views import question_add
-from answers.views import answer
+from questions import urls as qurls
+from answers import urls as aurls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", answer, name="home"),
-    path("uncategorized/", answer, name="uncategorized"),
-    path("excel/", answer, name="excel"),
-    path("word/", answer, name="word"),
-    path("powerpoint/", answer, name="powerpoint"),
-    path("operating_system/", answer, name="operating-system"),
-    path("computer_fundamental/", answer, name="computer-misc"),
-    path("add/", question_add, name="add"),
+    path("answer/", include(aurls)),
+    path("add/", include(qurls)),
     path("about/", about, name="about"),
     path("contact/", contact, name="contact"),
 ]

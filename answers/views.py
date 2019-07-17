@@ -19,7 +19,7 @@ def answer(request):
     template = "questions/answer.html"
 
     info = get_object_or_404(Info, identifier=1)
-    category = request.path_info.replace("/", "")
+    category = request.path_info.replace("/", "").replace("answer", "")
     if category == "":
         category = "uncategorized"
 
@@ -30,11 +30,11 @@ def answer(request):
             question = Question.objects.get(category=category, question_num=1)
         except Question.DoesNotExist:
             print(
-                "===============================++++++++++++++++========================="
+                "=====================++++++++++++++++=================="
             )
             print("Question number 1 does not exist for some reason fix it")
             print(
-                "===============================++++++++++++++++========================="
+                "=====================++++++++++++++++=================="
             )
             raise
     else:
@@ -90,7 +90,7 @@ def answer(request):
         question.save()
         setattr(info, "last_answered_" + category, question.question_num)
         info.save()
-        return redirect("home")
+        return redirect("answers:" + category)
 
     context = {"title": "answer", "question": question, "info": info}
 

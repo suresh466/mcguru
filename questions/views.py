@@ -1,4 +1,5 @@
 from .forms import QuestionAddForm
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Info
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -45,7 +46,7 @@ def question_add(request):
 
         question.save()
         info.save()
-        return redirect("add")
+        return redirect("questions:add")
 
     context = {"title": "add", "form": form, "info": info}
 
