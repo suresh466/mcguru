@@ -4,10 +4,10 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import QuestionAddForm
 from .models import Info, Question
-
+from django.contrib.admin.views.decorators import staff_member_required
 # Create your views here.
 
-
+@staff_member_required
 def question_add(request):
     template = "questions/add.html"
 
