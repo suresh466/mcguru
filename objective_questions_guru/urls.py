@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from static_pages.views import about, contact
-from questions.views import question_add, answer
+from questions.views import question_add
+from answers.views import answer
 
 urlpatterns = [
     path("admin/", admin.site.urls),
