@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>I:{{info.iteration_num}} Answer some questions</h2>
+<h2>Answer some questions:</h2>
 
 {% if messages %}
 
@@ -14,38 +14,24 @@
 
 {% endif %}
 
-{% if question != None %}
-
-<p>Right count: {{question.right_count}} || total: {{question.total_right_count}}</p>
-<p>wrong count: {{question.wrong_count}} || total: {{question.total_wrong_count}}</p>
-<hr>
-<p>Jump to question_num</p>
-
+<h3>Jump to question_num</h3>
 <form method="POST">
   {% csrf_token %}
   <input type="number" name="jump" />
   <input type="submit" value="jump_now" />
 </form>
 
-<h3>Q.{{question.question_num}} {{question.question}} </h3>
+<h3>Q.{{question.question_num}}: {{question.question}}</h3>
 <p>a. {{question.opt_a}}</p>
 <p>b. {{question.opt_b}}</p>
 <p>c. {{question.opt_c}}</p>
 <p>d. {{question.opt_d}}</p>
-{% if question.hint %}
-<p>Hint: {{question.hint}}</p>
-{% else %}
-<p> No hint for this question available</p>
-{% endif %}
 
 <form method="POST">
   {% csrf_token %}
   <input type="text" name="answer">
   <input type="submit" value="{{ title }}" />
 </form>
-{% else %}
-<p>No more questions</p>
-{% endif %}
 
 {% endblock content %}
 
