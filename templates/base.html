@@ -1,28 +1,69 @@
-<!Doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>OQ guru</title>
-  </head>
-  <body>
-	  ============
-	   header area
-	  ============
-    <hr>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>MC guru</title>
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/Footer-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+
     <div>
-      <a href="{% url 'answers:answer' %}">Home</a> ||
-      <a href="{% url 'questions:add' %}">Add</a> ||
-      <a href="{% url 'about' %}">About</a> ||
-      <a href="{% url 'contact' %}">Contact</a> ||
+        <nav class="navbar navbar-dark navbar-expand-md text-white bg-dark navigation-clean">
+		<div class="container-fluid"><a class="navbar-brand" href="{% url 'answers:answer' %}">MC guru</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse text-monospace"
+                    id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Excel</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Word</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">PowerPoint</a></li>
+                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">More&nbsp;</a>
+                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Html</a><a class="dropdown-item" role="presentation" href="#">Computer Fundamentals</a><a class="dropdown-item" role="presentation" href="#">Uncategorized</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-    <br>
-	  
+
     {% block content %}
 
     {% endblock %}
-    <hr>
-	  =============
-	  footer area
-	  =============
-  </body>
+
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+			    <h3>About<a href="github.com/sureshthagunna/"><img class="position-absolute" src="{% static 'img/fork-me.png' %}" style="right:0;"/></a></h3>
+                        <ul>
+                            <li><a href="#">Project</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>MC guru</h3>
+			<p>It is an open source project you can find the code for this project in GitHub.</p>
+                    </div>
+                    <div class="col item social">
+                        <h3>Connect</h3><a href="#"><i class="icon ion-social-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
 </html>

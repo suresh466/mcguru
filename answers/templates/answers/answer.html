@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<h2>Answer some questions:</h2>
-
 {% if messages %}
 
 {% for message in messages %}
@@ -14,24 +12,31 @@
 
 {% endif %}
 
-<h3>Jump to question_num</h3>
-<form method="POST">
-  {% csrf_token %}
-  <input type="number" name="jump" />
-  <input type="submit" value="jump_now" />
-</form>
+      <main>
+        <h1>Answer some questions:</h1>
+        <h4>Jump to question:</h4>
 
-<h3>Q.{{question.question_num}}: {{question.question}}</h3>
-<p>a. {{question.opt_a}}</p>
-<p>b. {{question.opt_b}}</p>
-<p>c. {{question.opt_c}}</p>
-<p>d. {{question.opt_d}}</p>
+	<form method="POST">
+	{% csrf_token %}
+	<input class="border-dark form-control-sm" type="number" name="jump" min="1" placeholder="Question Number">
+	<button class="btn btn-secondary active btn-sm" type="submit">Button</button>
+	</form>
 
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="answer">
-  <input type="submit" value="{{ title }}" />
-</form>
+        <hr>
+	<h2>Q.{{question.question_num}}: {{question.question}}</h2>
+        <hr>
+        <ul>
+            <li>a. {{question.opt_a}} </li>
+            <li>b. {{question.opt_b}} </li>
+            <li>c. {{question.opt_c}} </li>
+            <li>d. {{question.opt_d}} </li>
+        </ul>
+
+	<form method="POST">
+	{% csrf_token %}
+        <input class="form-control-lg" type="text" name="answer" placeholder="Answer"> <button class="btn btn-primary" type="button">Submit</button></div>
+	</form>
+	<hr>
+      </main>
 
 {% endblock content %}
-
