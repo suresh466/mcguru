@@ -90,7 +90,7 @@ def answer(request):
                     ),
                 )
 
-        if jump >= 0:
+        if 'jump' in locals():
             request.session["last_answered_" + category] = jump
         else:
             request.session["last_answered_" + category] = question.question_num
