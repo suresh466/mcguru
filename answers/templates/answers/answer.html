@@ -12,24 +12,28 @@
 
 {% endif %}
 
-      <main>
-        <h1>Answer some questions:</h1>
-        <h4>Jump to question:</h4>
+      <div class="bg-secondary text-center">
+        <h2>Answer some questions</h2>
+      </div>
 
-	<form method="POST">
+      <div class=">
+	<form method="POST" >
 	{% csrf_token %}
+      	<label><h5 class="align-content-center">Jump to question</h5></label>
 	<input class="border-dark form-control-sm" type="number" name="jump" min="1" placeholder="Question Number">
 	<button class="btn btn-secondary active btn-sm" type="submit">Button</button>
 	</form>
+      </div>
 
-        <hr>
+      <main>
+      <div class="container">
 	<h2>Q.{{question.question_num}}: {{question.question}}</h2>
         <hr>
         <ul>
-            <li>a. {{question.opt_a}} </li>
-            <li>b. {{question.opt_b}} </li>
-            <li>c. {{question.opt_c}} </li>
-            <li>d. {{question.opt_d}} </li>
+		<b><li class="badge-pill">A. {{question.opt_a}} </li></b>
+		<b><li class="badge-pill">B. {{question.opt_b}} </li></b>
+		<b><li class="badge-pill">C. {{question.opt_c}} </li></b>
+		<b><li class="badge-pill">D. {{question.opt_d}} </li></b>
         </ul>
 
 	<form method="POST">
@@ -37,6 +41,7 @@
         <input class="form-control-lg" type="text" name="answer" placeholder="Answer"> <button class="btn btn-primary" type="button">Submit</button></div>
 	</form>
 	<hr>
+	</div>
       </main>
 
 {% endblock content %}
