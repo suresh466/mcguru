@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get("OQ_GURU_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG_VALUE")
 
-ALLOWED_HOSTS = ['mcguru.herokuapp.com']
+ALLOWED_HOSTS = ["mcguru.herokuapp.com","127.0.0.1"]
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
