@@ -6,8 +6,8 @@ UN = "uncategorized"
 XLS = "excel"
 DOC = "word"
 PPT = "powerpoint"
-OS = "operating-system"
-MISC = "computer-misc"
+OS = "operating_system"
+MISC = "computer_misc"
 
 CATEGORIES_CHOICE = (
     (UN, "Uncategorized"),
