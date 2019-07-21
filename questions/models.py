@@ -32,6 +32,8 @@ class Question(models.Model):
     category = models.CharField(
         choices=CATEGORIES_CHOICE, default="Uncategorized", max_length=20
     )
+    opt_e = models.CharField(max_length=255, blank=True, default="null")
+    opt_f = models.CharField(max_length=255, blank=True, default="null")
     # hint = models.CharField(max_length=500,blank=True)
 
     def __str__(self):
