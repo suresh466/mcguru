@@ -12,8 +12,12 @@ def get_correct_answer(answered_num, question):
         answer = question.opt_c
     elif answered_num == "d" or "4":
         answer = question.opt_d
-    return answer
+    elif answered_num == "e" or "5":
+        answer = question.opt_e
+    elif answered_num == "f" or "6":
+        answer = question.opt_f
 
+    return answer
 
 def answer(request):
     template = "answers/answer.html"
@@ -73,9 +77,22 @@ def answer(request):
             jump = int(request.POST["jump"])-1
         else:
             answered_num = request.POST["answer"].lower()
+            if answered_num == "1":
+                answered_num = "a"
+            if answered_num == "2":
+                answered_num = "b"
+            if answered_num == "3":
+                answered_num = "c"
+            if answered_num == "4":
+                answered_num = "d"
+            if answered_num == "5":
+                answered_num = "e"
+            if answered_num == "6":
+                answered_num = "f"
+
             answer = get_correct_answer(answered_num, question)
 
-            if answer == question.answer:
+            if answered_num == question.answer:
                 messages.success(
                     request,
                     "Congratulations, correct answer is {}: {}.".format(
@@ -85,8 +102,8 @@ def answer(request):
             else:
                 messages.warning(
                     request,
-                    "The correct answer was : {}. but you selected {}. Good luck for this one.".format(
-                        answer, answered_num
+                    "The correct answer was {} : {}. but you selected {}. Good luck for this one.".format(
+                        question.answer,answer, answered_num
                     ),
                 )
 
