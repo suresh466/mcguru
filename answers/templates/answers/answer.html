@@ -16,12 +16,12 @@
         <h2>Answer some questions</h2>
       </div>
 
-      <div class=">
+      <div class="">
 	<form method="POST" >
 	{% csrf_token %}
       	<label><h5 class="align-content-center">Jump to question</h5></label>
 	<input class="border-dark form-control-sm" type="number" name="jump" min="1" placeholder="Question Number">
-	<button class="btn btn-secondary active btn-sm" type="submit">Button</button>
+	<input class="btn btn-secondary active btn-sm" type="submit" value="Jump">
 	</form>
       </div>
 
@@ -30,15 +30,15 @@
 	<h2>Q.{{question.question_num}}: {{question.question}}</h2>
         <hr>
         <ul>
-		<b><li class="badge-pill">A. {{question.opt_a}} </li></b>
-		<b><li class="badge-pill">B. {{question.opt_b}} </li></b>
-		<b><li class="badge-pill">C. {{question.opt_c}} </li></b>
-		<b><li class="badge-pill">D. {{question.opt_d}} </li></b>
+		<b><li class="">A. {{question.opt_a}} </li></b>
+		<b><li class="">B. {{question.opt_b}} </li></b>
+		<b><li class="">C. {{question.opt_c}} </li></b>
+		<b><li class="">D. {{question.opt_d}} </li></b>
         </ul>
 
 	<form method="POST">
 	{% csrf_token %}
-        <input class="form-control-lg" type="text" name="answer" placeholder="Answer"> <button class="btn btn-primary" type="button">Submit</button></div>
+        <input class="form-control-lg" type="text" name="answer" placeholder="Answer"> <input class="btn btn-primary" type="submit" value="Submit">
 	</form>
 	<hr>
 	</div>
