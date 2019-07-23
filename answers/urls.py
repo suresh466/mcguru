@@ -9,5 +9,5 @@ urlpatterns = [
     path("word/", answer, name="word"),
     path("powerpoint/", answer, name="powerpoint"),
     path("operating_system/", answer, name="operating_system"),
-    path("computer_misc/", answer, name="computer_fundamental"),
+    path("computer_misc/", answer, name="computer_misc"),
 ]

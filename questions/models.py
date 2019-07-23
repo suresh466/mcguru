@@ -51,7 +51,7 @@ class Info(models.Model):
     total_questions_operating_system = models.PositiveIntegerField(
         blank=False, default=0
     )
-    total_questions_computer_fundamental = models.PositiveIntegerField(
+    total_questions_computer_misc= models.PositiveIntegerField(
         blank=False, default=0
     )
     identifier = models.PositiveIntegerField(default=1, blank=False, editable=False)
