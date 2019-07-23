@@ -23,7 +23,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 SECRET_KEY = os.environ.get("OQ_GURU_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG_VALUE")
+DEBUG = os.environ.get("DEBUG_VALUE", False)
 
 ALLOWED_HOSTS = ["mcguru.herokuapp.com","127.0.0.1"]
 
