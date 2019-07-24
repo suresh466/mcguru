@@ -25,7 +25,7 @@ def answer(request):
     info = get_object_or_404(Info, identifier=1)
     category = request.path_info.replace("/", "").replace("answer", "")
     if category == "":
-        category = "uncategorized"
+        category = "computer_misc"
 
     if 'last_answered_' + category not in request.session:
         category_last_answered = request.session['last_answered_' + category] = 0
