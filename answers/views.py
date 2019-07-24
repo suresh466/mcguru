@@ -4,17 +4,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from questions.models import Info, Question
 
 def get_correct_answer(answered_num, question):
-    if answered_num == "a" or "1":
+    if answered_num == "a":
         answer = question.opt_a
-    elif answered_num == "b" or "2":
-        answer = questin.opt_b
-    elif answered_num == "c" or "3":
+    elif answered_num == "b":
+        answer = question.opt_b
+    elif answered_num == "c":
         answer = question.opt_c
-    elif answered_num == "d" or "4":
+    elif answered_num == "d":
         answer = question.opt_d
-    elif answered_num == "e" or "5":
+    elif answered_num == "e":
         answer = question.opt_e
-    elif answered_num == "f" or "6":
+    elif answered_num == "f":
         answer = question.opt_f
 
     return answer
