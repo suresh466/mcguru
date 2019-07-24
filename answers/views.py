@@ -113,7 +113,8 @@ def answer(request):
             request.session["last_answered_" + category] = question.question_num
         return redirect("answers:" + category)
     total_questions = getattr(info, "total_questions_"+category)
+    total_questions_total = info.total_questions
 
-    context = {"title": "answer", "question": question, "total_questions": total_questions}
+    context = {"title": "answer", "question": question, "total_questions": total_questions, "total_questions_total": total_questions_total}
 
     return render(request, template, context)
