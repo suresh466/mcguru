@@ -21,12 +21,12 @@
                 <div class="collapse navbar-collapse text-monospace"
                     id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Excel</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Word</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">PowerPoint</a></li>
-                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">More&nbsp;</a>
-                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Html</a><a class="dropdown-item" role="presentation" href="#">Computer Fundamentals</a><a class="dropdown-item" role="presentation" href="#">Uncategorized</a></div>
-                        </li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'answers:computer_misc' %}">Fundamental Misc</a></li>
+			<li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'answers:excel' %}">Excel</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'answers:word' %}">Word</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'answers:powerpoint' %}">PowerPoint</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'answers:operating_system' %}">Operating_system</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'answers:uncategorized' %}">Uncategorized</a></li>
                     </ul>
                 </div>
             </div>
