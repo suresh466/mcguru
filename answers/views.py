@@ -3,18 +3,18 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.shortcuts import render, redirect, get_object_or_404
 from questions.models import Info, Question
 
-def get_correct_answer(answered_num, question):
-    if answered_num == "a":
+def get_correct_answer(question):
+    if question.answer == "a":
         answer = question.opt_a
-    elif answered_num == "b":
+    elif question.answer == "b":
         answer = question.opt_b
-    elif answered_num == "c":
+    elif question.answer== "c":
         answer = question.opt_c
-    elif answered_num == "d":
+    elif question.answer == "d":
         answer = question.opt_d
-    elif answered_num == "e":
+    elif question.answer == "e":
         answer = question.opt_e
-    elif answered_num == "f":
+    elif question.answer == "f":
         answer = question.opt_f
 
     return answer
@@ -90,7 +90,7 @@ def answer(request):
             if answered_num == "6":
                 answered_num = "f"
 
-            answer = get_correct_answer(answered_num, question)
+            answer = get_correct_answer(question)
 
             if answered_num == question.answer:
                 messages.success(
