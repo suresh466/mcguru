@@ -1,4 +1,7 @@
 # mc-guru
+
+Heroku deployment: https://www.mcguru.herokuapp.com
+
 A more powerful version of this application is **mcguru-f** it sorts questions to save you most time and
 provides you with questions most suitable for individual you with every iteration until there are no more.
 
